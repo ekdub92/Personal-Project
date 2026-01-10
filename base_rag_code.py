@@ -1,10 +1,11 @@
+from huggingface_hub import hf_hub_download
 from langchain_chroma import Chroma
 from langchain_community.document_loaders.json_loader import JSONLoader
 from langchain_core.documents import Document
 from langchain_core.embeddings import FakeEmbeddings
 from langchain_text_splitters import RecursiveJsonSplitter 
 
-# HuggingFace : opendatalab/ScienceMetaBench
+hf_hub_download(repo_id="opendatalab/ScienceMetaBench", filename="data/20251022/ebook_1022.jsonl", repo_type="dataset")
 json_data = JSONLoader(
     file_path="ebook_1022.jsonl",
     jq_schema=".",
@@ -13,7 +14,6 @@ json_data = JSONLoader(
 ).load()
 
 splitter = RecursiveJsonSplitter(max_chunk_size=300)
-
 vector_store = Chroma.from_documents(
     documents=json_data,
     embedding=FakeEmbeddings(size=1352),
