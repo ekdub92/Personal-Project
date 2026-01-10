@@ -4,12 +4,13 @@ from langchain_core.documents import Document
 from langchain_core.embeddings import FakeEmbeddings
 from langchain_text_splitters import RecursiveJsonSplitter 
 
+# HuggingFace : opendatalab/ScienceMetaBench
 json_data = JSONLoader(
     file_path="ebook_1022.jsonl",
     jq_schema=".",
     text_content=False,
     json_lines=True
-).load() # HuggingFace : opendatalab / ScienceMetaBench
+).load()
 
 splitter = RecursiveJsonSplitter(max_chunk_size=300)
 
