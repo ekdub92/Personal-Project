@@ -1,8 +1,7 @@
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
-from langchain_openai import OpenAIEmbeddings
+from langchain_core.embeddings import FakeEmbeddings
 
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 documents = [
     Document(
         page_content="?",
@@ -16,12 +15,12 @@ documents = [
 
 vector_store = Chroma.from_documents(
     documents=documents,
-    embedding=embeddings,
+    embedding=FakeEmbeddings(size=1352),
     persist_directory="./test_db"
 )
 
 query = "?"
 result = vector_store.search_similarity(query)
 for i, document in result:
-    print("{i+1}번쨰 문서 : {document.page_content}")
-    print("출처 : {document.meta_source}")
+    print(f"{i+1}번쨰 문서 : {document.page_content}")
+    print(f"출처 : {document.metadata}")
