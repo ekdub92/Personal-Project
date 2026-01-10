@@ -1,0 +1,6 @@
+langchain_chroma
+langchain_community
+langchain_core
+langchain-text-splitters
+huggingface_hub
+jq
