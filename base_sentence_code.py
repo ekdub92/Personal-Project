@@ -1,7 +1,7 @@
 from datasets import Dataset
 from evaluate import load
 from huggingface_hub import hf_hub_download, snapshot_download
-from transformers import DistilBertForSequenceClassification, DistilBertTokenizer, TrainingArguments, Trainer
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
 
 import numpy as np
 import pandas
@@ -15,9 +15,9 @@ def compute_metrics(eval_pred):
     return load("accuracy").compute(predictions=predictions, references=labels)
 
 
-# snapshot_download(repo_id="distilbert/distilbert-base-uncased-finetuned-sst-2-english", repo_type="model", local_dir="distilbert-base-uncased-finetuned-sst-2-english")
-tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english", local_files_only=True)
-model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english", local_files_only=True)
+snapshot_download(repo_id="klue/bert-base", repo_type="model", local_dir="klue/bert-base")
+tokenizer = AutoTokenizer.from_pretrained("klue/bert-base", local_files_only=True)
+model = AutoModelForSequenceClassification.from_pretrained("klue/bert-base", num_labels=4, local_files_only=True)
 
 # hf_hub_download(repo_id="dair-ai/emotion", filename="split/train-00000-of-00001.parquet", repo_type="dataset", local_dir=".")
 train_dataframe = pandas.read_parquet('split/train-00000-of-00001.parquet')
@@ -40,8 +40,8 @@ training_args = TrainingArguments(
     per_device_eval_batch_size=8,
     learning_rate=5e-5,
     weight_decay=0.01,
-    evaluation_strategy="epoch",
     save_strategy="epoch",
+    eval_strategy="epoch",
     logging_dir="./logs",
     logging_steps=1,
     load_best_model_at_end=True,
