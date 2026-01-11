@@ -5,9 +5,9 @@ from langchain_core.documents import Document
 from langchain_core.embeddings import FakeEmbeddings
 from langchain_text_splitters import RecursiveJsonSplitter 
 
-hf_hub_download(repo_id="opendatalab/ScienceMetaBench", filename="data/20251022/ebook_1022.jsonl", repo_type="dataset")
+hf_hub_download(repo_id="opendatalab/ScienceMetaBench", filename="data/20251022/ebook_1022.jsonl", repo_type="dataset", local_dir='.')
 json_data = JSONLoader(
-    file_path="ebook_1022.jsonl",
+    file_path="data/20251022/ebook_1022.jsonl",
     jq_schema=".",
     text_content=False,
     json_lines=True
