@@ -44,5 +44,5 @@ for (images, labels) in eval_loader:
     probs, indices = torch.max(outputs, 1)
     total += outputs.size(0)
     correct += (indices == labels).sum()
-    print(f"total: {total}, correct: {correct}")
-    break
+
+print(f"total: {total}, correct: {correct}")
