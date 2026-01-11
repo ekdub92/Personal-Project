@@ -17,7 +17,7 @@ def compute_metrics(eval_pred):
 
 # snapshot_download(repo_id="klue/bert-base", repo_type="model", local_dir="klue/bert-base")
 tokenizer = AutoTokenizer.from_pretrained("klue/bert-base", local_files_only=True)
-model = AutoModelForSequenceClassification.from_pretrained("klue/bert-base", num_labels=5, local_files_only=True)
+model = AutoModelForSequenceClassification.from_pretrained("klue/bert-base", num_labels=6, local_files_only=True)
 
 # hf_hub_download(repo_id="dair-ai/emotion", filename="split/train-00000-of-00001.parquet", repo_type="dataset", local_dir=".")
 train_dataframe = pandas.read_parquet('split/train-00000-of-00001.parquet')
